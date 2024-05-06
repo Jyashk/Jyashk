@@ -2,7 +2,7 @@
   hosts: DB
   become: yes
   vars:
-   login_host: db.yashwanth.online
+   login_host: db.jupalliyashwanthkumar.online
   vars_prompt:
    - name: mysql_root_password
      prompt: enter the root password
@@ -32,8 +32,8 @@
    - name: Check the mysql version using user name and password
      community.mysql.mysql_info:
        login_user: root
-       login_password: {{mysql_root_password}}
-       login_host: {{login_host}}
+       login_password: "{{ mysql_root_password }}"
+       login_host: "{{ login_host }}"
        filter: 
         - version
         - databases
@@ -41,10 +41,10 @@
      register: mysql_connection.output
    - name: Check output
      ansible.builtin.debug:
-       msg: "Output : {{mysql_connection.output}}"
+       msg: "Output : {{ mysql_connection.output }}"
 
    - name: Set root password
-     ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
+     ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
      when: 
        "mysql_connection.output.failed is true"
        
