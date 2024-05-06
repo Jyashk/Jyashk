@@ -15,7 +15,7 @@
      register: install
    - name: Check output
      ansible.builtin.debug:
-      msg: "Output : {{ Install }}"
+      msg: "Output : {{ install }}"
 
    - name: Start and  Enable the Mysql server
      ansible.builtin.service:
