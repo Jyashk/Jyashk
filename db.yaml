@@ -1,0 +1,50 @@
+- name: Installing Mysql DB
+  hosts: DB
+  become: yes
+  vars:
+   login_host: db.yashwanth.online
+  vars_prompt:
+   - name: mysql_root_password
+     prompt: enter the root password
+     private: no
+  tasks:
+   - name: Install Mysql server
+     ansible.builtin.dnf:
+      name: mysql-server
+      state: latest
+      register: Install
+   - name: Check output
+     ansible.builtin.debug:
+      msg: "Output : {{ Install }}"
+
+   - name: Start and  Enable the Mysql server
+     ansible.builtin.service:
+       name: mysqld
+       state: started
+       enabled: yes  
+
+    - name: Install python dependenices
+      ansible.builtin.pip:
+       - PyMySQL
+       - cryptography
+      executable: pip3.9
+
+    - name: Check the mysql version using user name and password
+      community.mysql.mysql_info:
+       login_user: root
+       login_password: {{mysql_root_password}}
+       login_host: {{login_host}}
+       filter: 
+        - version
+        - databases
+       ignore_errors: true
+       register: mysql_connection.output
+    - name: Check output
+      ansible.builtin.debug:
+       msg: "Output : {{mysql_connection.output}}"
+
+    - name: Set root password
+      ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
+      when: 
+       "mysql_connection.output.failed is true"
+       
