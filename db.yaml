@@ -20,7 +20,7 @@
    - name: Start and  Enable the Mysql server
      ansible.builtin.service:
        name: mysqld
-       state: restarted
+       state: started
        enabled: yes  
 
    - name: Install python dependenices
