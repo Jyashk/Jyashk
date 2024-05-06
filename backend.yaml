@@ -60,9 +60,9 @@
       login_host: "{{login_host}}"
       login_user: root
       login_password: "{{mysql_root_password}}"
-      state: import
-      name: all
       target: /app/schema/backend.sql
+      state: import
+      name: all 
 
    - name: Deamon reload 
      ansible.builtin.systemd_service:
