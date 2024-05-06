@@ -56,9 +56,10 @@
       executable: pip3.9
 
    - name: Data Import 
-     login_host: "{{login_host}}"
-     login_user: root
-     login_password: "{{mysql_root_password}}"
+     community.mysql.mysql_info:
+      login_host: "{{login_host}}"
+      login_user: root
+      login_password: "{{mysql_root_password}}"
      mysql_db:
       state: import
       name: all
