@@ -15,8 +15,7 @@
      ansible.builtin.command: dnf module enable nodejs:20 -y
    
    - name: Install Nodejs
-     ansible.builtin.command: {{item.name}}
-       name: 
+     ansible.builtin.command: {{item}}
        - nodejs
        - mysql
 
