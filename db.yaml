@@ -27,7 +27,7 @@
      ansible.builtin.pip:
        - PyMySQL
        - cryptography
-      executable: pip3.9
+     executable: pip3.9
 
    - name: Check the mysql version using user name and password
      community.mysql.mysql_info:
@@ -37,8 +37,8 @@
        filter: 
         - version
         - databases
-       ignore_errors: true
-       register: mysql_connection.output
+     ignore_errors: true
+     register: mysql_connection.output
    - name: Check output
      ansible.builtin.debug:
        msg: "Output : {{mysql_connection.output}}"
