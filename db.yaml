@@ -23,13 +23,13 @@
        state: started
        enabled: yes  
 
-    - name: Install python dependenices
+   - name: Install python dependenices
       ansible.builtin.pip:
        - PyMySQL
        - cryptography
       executable: pip3.9
 
-    - name: Check the mysql version using user name and password
+   - name: Check the mysql version using user name and password
       community.mysql.mysql_info:
        login_user: root
        login_password: {{mysql_root_password}}
@@ -39,11 +39,11 @@
         - databases
        ignore_errors: true
        register: mysql_connection.output
-    - name: Check output
+   - name: Check output
       ansible.builtin.debug:
        msg: "Output : {{mysql_connection.output}}"
 
-    - name: Set root password
+   - name: Set root password
       ansible.builtin.command: mysql_secure_installation --set-root-pass {{mysql_root_password}}
       when: 
        "mysql_connection.output.failed is true"
